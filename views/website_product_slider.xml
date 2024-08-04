@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="website_product_slider_view_tree" model="ir.ui.view">
+        <field name="name">Product Sliders</field>
+        <field name="model">website.product_slider</field>
+        <field name="priority" eval="16"/>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="name"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="website_product_slider_view_form" model="ir.ui.view">
+        <field name="name">Product Sliders</field>
+        <field name="model">website.product_slider</field>
+        <field name="priority" eval="16"/>
+        <field name="arch" type="xml">
+            <form string="Product Sliders">
+                <group>
+                    <field name="name"/>
+                    <field name="title"/>
+                </group>
+                <notebook>
+                    <page string="Products">
+                        <field name="products">
+                            <tree decoration-danger="website_published == False">
+                                <field name="name"/>
+                                <field name="list_price"/>
+                                <field name="public_categ_ids"/>
+                                <field name="website_published"/>
+                            </tree>
+                        </field>
+                    </page>
+                    <page string="Slide Settings">
+                        <group>
+                            <label for="columns">Products per Slide</label>
+                            <div>
+                                <div>
+                                    <field name="columns" class="oe_inline"/>
+                                </div>
+                                <span style="color:#aaa;">
+                                    Defines number of products per single slide.
+                                </span>
+                            </div>
+                            <label for="interval">Slide Interval (ms)</label>
+                            <div>
+                                <div>
+                                    <field name="interval" class="oe_inline"/>
+                                </div>
+                                <span style="color:#aaa;">
+                                    The amount of time to delay between automatically cycling an item. If 0, carousel will not automatically cycle.
+                                </span>
+                            </div>
+                            <label for="pause">Pause on Hover</label>
+                            <div>
+                                <div>
+                                    <field name="pause" class="oe_inline"/>
+                                </div>
+                                <span style="color:#aaa;">
+                                    Pauses the cycling of the carousel on mouseenter and resumes the cycling of the carousel on mouseleave.
+                                </span>
+                            </div>
+                            <label for="wrap">Wrap</label>
+                            <div>
+                                <div>
+                                    <field name="wrap" class="oe_inline"/>
+                                </div>
+                                <span style="color:#aaa;">
+                                    Whether the carousel should cycle continuously or have hard stops.
+                                </span>
+                            </div>
+                        </group>
+                    </page>
+                </notebook>
+            </form>
+        </field>
+    </record>
+
+    <record id="act_window_website_product_slider" model="ir.actions.act_window">
+        <field name="name">Product Sliders</field>
+        <field name="res_model">website.product_slider</field>
+        <field name="view_mode">tree,form</field>
+        <field name="help" type="html">
+            <p class="oe_view_nocontent_create">Click to define a new product slider.</p>
+        </field>
+        <field name="context">{'default_columns': '4', 'default_interval': 5000, 'default_pause': True, 'default_wrap': True}</field>
+    </record>
+
+    <menuitem id="menu_website_product_slider"
+              action="act_window_website_product_slider"
+              parent="website.menu_website_configuration"
+              name="Product Sliders"
+              sequence="999"/>
+
+</odoo>

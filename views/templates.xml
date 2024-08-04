@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<odoo>
+
+    <template id="qweb_template_wrap">
+        &lt;templates id="template" xml:space="preserve"&gt;
+            &lt;t t-name="website_sale_product_slider.s_product_slider_<t t-esc="id"/>"&gt;
+                <div><t t-raw="0"/></div>
+            &lt;/t&gt;
+        &lt;/templates&gt;
+    </template>
+
+    <template id="products_item" inherit_id="website_sale.products_item" primary="True" name="Products item"/>
+
+    <template id="product_slider_dynamic_template">
+        <t t-call="website_sale_product_slider.qweb_template_wrap">
+            <div class="container">
+                <div class="mt16 mb16">
+                    <div class="row">
+                        <div class="col-md-9">
+                            <h3 class="mt0 mb8 text-xs-center text-sm-center text-md-left text-lg-left" t-esc="title"/>
+                        </div>
+                        <div class="col-md-3">
+                            <!-- Controls -->
+                            <div class="controls text-right mb8 text-xs-center text-sm-center text-md-right text-lg-right">
+                                <a class="left fa fa-chevron-left btn btn-primary" t-attf-href="#website_sale_product_slider_#{random_id}" data-slide="prev"></a>
+                                <a class="right fa fa-chevron-right btn btn-primary" t-attf-href="#website_sale_product_slider_#{random_id}" data-slide="next"></a>
+                            </div>
+                        </div>
+                    </div>
+                    <div t-attf-id="website_sale_product_slider_#{random_id}"
+                         class="carousel slide"
+                         data-ride="carousel"
+                         t-att-data-interval="interval"
+                         t-att-data-pause="pause"
+                         t-att-data-wrap="wrap">
+                        <!-- Wrapper for slides -->
+                        <div class="carousel-inner oe_website_sale">
+                            <t t-foreach="rows" t-as="row">
+                                <div t-attf-class="carousel-item row no-gutters #{'active' if row_index == 0 else ''}">
+                                    <div class="row d-flex">
+                                        <t t-foreach="row" t-as="product">
+                                            <div t-attf-class="mb16 col-sm-#{int(12/cols)} oe_product">
+                                                <div class="oe_product_cart" t-att-data-publish="product.website_published and 'on' or 'off'">
+                                                    <t t-call="website_sale_product_slider.products_item">
+                                                        <t t-set="td_product" t-value="{'ribbon': {'bg_color': product.website_ribbon_id.bg_color, 'text_color': product.website_ribbon_id.text_color, 'html_class': product.website_ribbon_id.html_class, 'html': product.website_ribbon_id.html}}"/>
+                                                    </t>
+                                                </div>
+                                            </div>
+                                        </t>
+                                    </div>
+                                </div>
+                            </t>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </t>
+    </template>
+
+</odoo>

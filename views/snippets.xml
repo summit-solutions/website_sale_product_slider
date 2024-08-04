@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <template id="s_product_slider" name="Product Slider">
+        <section class="website_sale_product_slider mt16 mb16"/>
+    </template>
+
+    <template id="snippets" inherit_id="website.snippets">
+        <xpath expr="//div[@id='snippet_structure']/div[contains(@class, 'o_panel_body')]">
+            <t t-snippet="website_sale_product_slider.s_product_slider" t-thumbnail="/website_sale_product_slider/static/src/img/thumbnail.png"/>
+        </xpath>
+    </template>
+
+    <template id="website_sale_product_slider_options" inherit_id="website.snippet_options">
+        <xpath expr="." position="inside">
+            <div data-js="website_sale_product_slider" 
+                 data-selector=".website_sale_product_slider" 
+                 data-drop-in=".oe_structure">
+                <we-customizeblock-option>
+                    <we-button data-switch-slider="true" data-no-preview="true">
+                        <i class="fa fa-fw fa-pencil-square-o"></i> Switch Slider
+                    </we-button>
+                </we-customizeblock-option>
+            </div>
+        </xpath>
+    </template>
+
+</odoo>
